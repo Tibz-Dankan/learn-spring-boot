@@ -19,7 +19,7 @@ public class StudentService {
     }
 
     public List<Student> getStudents(){
-        return this.studentRepository.findAll();
+        return studentRepository.findAll();
     }
 
     public  void addNewStudent(Student student){
@@ -28,5 +28,13 @@ public class StudentService {
             throw  new IllegalStateException("Email already taken");
         }
         studentRepository.save(student);
+    }
+
+    public void deleteStudent(Long studentId){
+        boolean exists = studentRepository.existsById(studentId);
+        if(!exists){
+           throw new IllegalStateException("Student with id "+ studentId + " does not exists");
+        }
+        studentRepository.deleteById(studentId);
     }
 }
